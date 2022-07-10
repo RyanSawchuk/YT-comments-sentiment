@@ -4,7 +4,6 @@ chrome.runtime.onInstalled.addListener(() => {
 
 chrome.tabs.onUpdated.addListener((tabId, info, tab) => {
     if (tab.url.includes("www.youtube.com/watch?v=")){
-        console.log(tab)
         chrome.tabs.sendMessage(tabId, 
             { message: "URLUpdate", url: tab.url, title: tab.title }, 
             function(response) {
