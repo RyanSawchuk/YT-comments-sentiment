@@ -2,18 +2,12 @@
 var lastUrl = "";
 var initialRun = true;
 
-chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.message === "URLUpdate"){
-        //console.log(`LAST: ${lastUrl}, NEW: ${request.url}`)
-        console.log(lastUrl === "", lastUrl != request.url)
         if (lastUrl === "" || lastUrl != request.url){
             lastUrl = request.url;
-
-            await sleep(5000);
-
-            beginSentimentProcess();
-            //console.log(document.readyState, document.title)
             sendResponse({ message: `Starting sentiment process.` });
+            beginSentimentProcess(title);
         }
         else {
             sendResponse({ message: "No new YouTube page." });
@@ -21,7 +15,11 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     }
 });
 
-function beginSentimentProcess(){
+
+async function beginSentimentProcess(){
+    await sleep(5000);
+    console.log(document.title)
+
     collectCommentData();
 
     computeSentiment();
@@ -30,27 +28,27 @@ function beginSentimentProcess(){
 }
 
 function collectCommentData(){
-    var filteredComments = [];
-    var commentsContainer = document.getElementById("contents");
-    //var comments = commentsContainer.getElementsByClassName("style-scope ytd-item-section-renderer");
-    //var comments = document.getElementsByTagName("yt-formatted-string")
-    //var comments = document.getElementsByTagName("div");
+    var items = document.getElementsByClassName("style-scope ytd-item-section-renderer"); // id="contents"
 
-    var _1 = document.getElementsByTagName("ytd-comment-thread-renderer")
-    console.log(_1)
-    for (var comment in _1){
-        //console.log(comment)
+    var container = [];//document.getElementById("contents");
+    for (var i in items){
+        if (items[i].id === "contents"
+         && items[i].tagName.toLowerCase() === "div"){
+            //console.log(comments[i].innerHTML)
+            container.push(comments[i]);
+            console.log(comments[i])
+        } 
     }
-    /*
-    var comments = document.getElementsByTagName("span")//.getElementsByClassName("style-scope yt-formatted-string");
+    
+    var comments = document.getElementsByTagName("yt-formatted-string");
+    var filteredComments = [];
     for (var i in comments){
-        //console.log(comments[i])
-        if (comments[i].className === "style-scope yt-formatted-string"){
-            filteredComments.push(comments[i].innerHTML)
+        if (comments[i].className === "style-scope ytd-comment-renderer"
+         && comments[i].slot === "content"){
+            //console.log(comments[i].innerHTML)
+            filteredComments.push(comments[i].innerHTML);
         }
     }
-    console.log(filteredComments)
-    */
 }
 
 function computeSentiment(){
