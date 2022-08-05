@@ -19,6 +19,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 async function beginSentimentProcess(){
     await sleep(5000);
     console.log(document.title)
+    loadComments();
 
     collectCommentData();
 
@@ -27,28 +28,47 @@ async function beginSentimentProcess(){
     displaySentimentVisual();
 }
 
-function collectCommentData(){
-    var items = document.getElementsByClassName("style-scope ytd-item-section-renderer"); // id="contents"
+function loadComments(){
+    //var items = document.getElementsByClassName("style-scope ytd-item-section-renderer"); // id="contents"
 
-    var container = [];//document.getElementById("contents");
+    var containers = [];
+    var items = document.getElementsByTagName("ytd-comments"); 
     for (var i in items){
-        if (items[i].id === "contents"
-         && items[i].tagName.toLowerCase() === "div"){
-            //console.log(comments[i].innerHTML)
-            container.push(comments[i]);
-            console.log(comments[i])
-        } 
-    }
-    
-    var comments = document.getElementsByTagName("yt-formatted-string");
-    var filteredComments = [];
-    for (var i in comments){
-        if (comments[i].className === "style-scope ytd-comment-renderer"
-         && comments[i].slot === "content"){
-            //console.log(comments[i].innerHTML)
-            filteredComments.push(comments[i].innerHTML);
+        if (items[i].id === "comments"
+         && items[i].querySelector("#continuations") != null){
+
+            items[i].setAttribute("position", "absolute");
+            items[i].setAttribute("z-index", -999);
+            items[i].hidden = true;
+            
+            //hight, width
+            items[i].getBoundingClientRect();
+
+            containers.push(items[i]);
         }
     }
+    
+    for (var i = 0; i < 12; i++){
+        window.dispatchEvent(new Event("scroll"));
+    }
+    window.dispatchEvent(new Event("scroll"));
+
+    console.log("COMMENTS LOADED");
+}
+
+function collectCommentData(){    
+    var comments = document.getElementsByTagName("yt-formatted-string");
+    var filteredComments = [];
+    if (comments){
+        for (var i in comments){
+            if (comments[i].className === "style-scope ytd-comment-renderer"
+             && comments[i].slot === "content"){
+                //console.log(comments[i].innerHTML)
+                filteredComments.push(comments[i].innerHTML);
+            }
+        }
+    }
+    console.log(`${filteredComments.length} COMMENTS`);
 }
 
 function computeSentiment(){
