@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         if (lastUrl === "" || lastUrl != request.url){
             lastUrl = request.url;
             sendResponse({ message: `Starting sentiment process.` });
-            beginSentimentProcess(title);
+            //beginSentimentProcess(title);
         }
         else {
             sendResponse({ message: "No new YouTube page." });
@@ -31,6 +31,10 @@ async function beginSentimentProcess(){
 function loadComments(){
     //var items = document.getElementsByClassName("style-scope ytd-item-section-renderer"); // id="contents"
 
+    for (var i = 0; i < 12; i++){
+        window.dispatchEvent(new Event("scroll"));
+    }
+
     var containers = [];
     var items = document.getElementsByTagName("ytd-comments"); 
     for (var i in items){
@@ -43,7 +47,6 @@ function loadComments(){
             
             //hight, width
             items[i].getBoundingClientRect();
-
             containers.push(items[i]);
         }
     }
@@ -52,7 +55,7 @@ function loadComments(){
         window.dispatchEvent(new Event("scroll"));
     }
     window.dispatchEvent(new Event("scroll"));
-
+    
     console.log("COMMENTS LOADED");
 }
 
@@ -85,9 +88,7 @@ function sleep(ms) {
 
 if (initialRun){
     initialRun = false;
-    //await sleep(5000);
     console.log('Initial run.')
-    //beginSentimentProcess();
 }
 
 console.log('contentScript.js ran.')
