@@ -7,7 +7,7 @@
     "background": {
         "service_worker": "/js/background.js"
     },
-    "permissions": ["tabs", "storage", "activeTab", "scripting"],
+    "permissions": ["tabs", "storage", "activeTab", "scripting", "webRequest"],
     "host_permissions": [
         "https://www.youtube.com/*"
     ],
@@ -33,6 +33,5 @@
         "32": "/images/generated_icon32.png",
         "48": "/images/generated_icon48.png",
         "128": "/images/generated_icon128.png"
-    },
-    "options_page": "/html/options.html"
+    }
   }

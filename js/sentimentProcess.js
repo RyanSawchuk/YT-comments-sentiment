@@ -2,8 +2,6 @@
 async function beginSentimentProcess(videoId){
     console.log("START SentimentProcess");
 
-    await createClient();
-
     for (var i = 0; i < 10; i++){
         await queryCommentData(videoId);
 
@@ -15,16 +13,14 @@ async function beginSentimentProcess(videoId){
     }
 }
 
-async function createClient(){
-    const youtubeAPIKey = "AIzaSyAIMOdtojUDvFctt0xfoqcRYXqztBqASKw";
-    gapi.client.setApiKey(youtubeAPIKey);
-    gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
-        .then(function() { console.log("GAPI client loaded for API"); },
-              function(err) { console.error("Error loading GAPI client for API", err); });
-}
-
 async function queryCommentData(videoId){    
-    
+    const youtubeAPIKey = "AIzaSyAIMOdtojUDvFctt0xfoqcRYXqztBqASKw";
+    var URL = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet&maxResults=100&order=relevance&videoId=${videoId}&key=${youtubeAPIKey}`
+
+    fetch(URL, headers = { "Content-Type": "application/json" })
+        .then(response => response.json())
+        .then((data) => console.log(data))
+        .catch(err => console.log(err))
 }
 
 async function computeSentiment(){
