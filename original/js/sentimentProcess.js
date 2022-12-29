@@ -54,6 +54,8 @@ async function queryCommentData(videoId){
 }
 
 async function computeSentiment(comments){
+
+    console.log(intensity);
     for (var index in comments.comments){
         comments.comments[index]
     }
