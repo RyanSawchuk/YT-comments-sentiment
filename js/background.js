@@ -13,4 +13,23 @@ chrome.tabs.onUpdated.addListener((tabId, info, tab) => {
     }
 });
 
+/* Wait for user to load comments
+
+function waitForEl(el) {
+  return new Promise((resolve, reject) => {
+    const intervalId = setInterval(() => {
+      if (document.querySelector(el)) {
+        clearInterval(intervalId);
+        resolve();
+      }
+    }, 500);
+  });
+}
+
+waitForEl("#comments #header-author").then(() => {
+  // comments should be loaded here
+});
+
+*/
+
 console.log('background.js ran.')
