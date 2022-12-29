@@ -8,7 +8,14 @@ from nltk.stem import PorterStemmer
 
 
 def vader():
-    pass
+    curratedWordlist = dict()
+
+    with open('wordlists/vader_wordlist.txt', 'r') as f:
+        for line in f:
+            tokens = line.split('\t')
+            curratedWordlist[tokens[0]] = tokens[1]
+    
+    write_to_json('wordlist.json', curratedWordlist)
 
 
 def afinn():
@@ -53,6 +60,8 @@ def LoughranMcDonald():
     print(p, n, nn)
 
 
-def write_to_json (filename, forms):
+def write_to_json(filename, object):
     with open(filename, "w") as outfile:
-        json.dump(forms, outfile)
+        json.dump(object, outfile)
+
+vader()
