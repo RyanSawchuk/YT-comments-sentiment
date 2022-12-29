@@ -1,19 +1,13 @@
 # <img src="public/icons/icon_48.png" width="45" align="left"> YT Comment Sentiment
 
-My Chrome Extension
+Visualize the YouTube video's sentiment given the comments.
 
 ## Features
 
-- Feature 1
-- Feature 2
 
 ## Install
 
 [**Chrome** extension]() <!-- TODO: Add chrome extension link inside parenthesis -->
-
-## Contribution
-
-Suggestions and pull requests are welcomed!.
 
 ---
 
