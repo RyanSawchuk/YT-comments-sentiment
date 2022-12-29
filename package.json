@@ -1,7 +1,7 @@
 {
   "name": "yt-comment-sentiment",
   "version": "0.1.0",
-  "description": "Visualize the YouTube video's sentiment given the comments.",
+  "description": "Visualize a YouTube video's sentiment given the comments.",
   "private": true,
   "scripts": {
     "watch": "webpack --mode=development --watch --config config/webpack.config.js",

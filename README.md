@@ -1,6 +1,6 @@
-# <img src="public/icons/icon_48.png" width="45" align="left"> YT Comment Sentiment
+# <img src="public/icons/icon_48.png" width="45" align="left"> YouTube Comment Sentiment
 
-Visualize the YouTube video's sentiment given the comments.
+Visualize a YouTube video's sentiment given the comments.
 
 ## Features
 

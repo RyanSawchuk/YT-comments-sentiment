@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "YT Comment Sentiment",
   "version": "0.1.0",
-  "description": "Visualize the YouTube video's sentiment given the comments.",
+  "description": "Visualize a YouTube video's sentiment given the comments.",
   "author": "Ryan Sawchuk",
   "icons": {
     "16": "icons/icon_16.png",
