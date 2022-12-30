@@ -16,13 +16,17 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-var pageToken = undefined;
 export async function beginSentimentProcess(videoId){
-    for (var i = 0; i < 10; i++){
-        queryCommentData(videoId, pageToken)
+    var pageToken = undefined;
+    for (var i = 0; i < 3; i++){
+        await queryCommentData(videoId, pageToken)
         .then(commentsBatch => computeSentiment(commentsBatch))
-        .then((nextPageToken) => pageToken = nextPageToken);
-        console.log(pageToken)
+        .then(nextPageToken => pageToken = nextPageToken)
+        .catch(error => {
+            document.getElementById('commentsAnalyzed').innerHTML = "No comments available.";
+            document.getElementById('commentsAnalyzed').style.color = '#eb2c2c';
+        });
+        
         if (!pageToken){
             break;
         }
@@ -40,13 +44,12 @@ async function queryCommentData(videoId, pageToken){
     return fetch(URL, { headers: { "Content-Type": "application/json" }})
     .then(response => response.json())
     .then((data) => {
-        if (!data) { throw new Error("Empty response."); }
-        
+        if (!data || data['error']) { throw new Error("No comments available."); }
+
         var result = {};
         result['totalResults'] = data['pageInfo']['totalResults'];
         result['nextPageToken'] = data['nextPageToken'];
         result['comments'] = [];
-        pageToken = data['nextPageToken'];
 
         for (var index in data.items){
             var extractedData = {
@@ -107,23 +110,28 @@ async function computeSentiment(commentsBatch){
     return commentsBatch.nextPageToken;
 }
 
+function roundDownFormat(value){
+    return Math.floor(value * 10) / 10;
+}
+
 function updateSentimentVisual(){
-    var sp = `${(analysisResults['strongly-positive'] / analysisResults['sentiment-sum'] * 100).toFixed(1)}%`;
-    var p = `${(analysisResults['positive'] / analysisResults['sentiment-sum'] * 100).toFixed(1)}%`;
-    var nn = `${(analysisResults['neutral'] / analysisResults['sentiment-sum'] * 100).toFixed(1)}%`;
-    var n = `${(analysisResults['negative'] / analysisResults['sentiment-sum'] * 100).toFixed(1)}%`;
-    var sn = `${(analysisResults['strongly-negative'] / analysisResults['sentiment-sum'] * 100).toFixed(1)}%`;
+    var sp = `${roundDownFormat(analysisResults['strongly-positive'] / analysisResults['sentiment-sum'] * 100)}%`;
+    var p = `${roundDownFormat(analysisResults['positive'] / analysisResults['sentiment-sum'] * 100)}%`;
+    var nn = `${roundDownFormat(analysisResults['neutral'] / analysisResults['sentiment-sum'] * 100)}%`;
+    var n = `${roundDownFormat(analysisResults['negative'] / analysisResults['sentiment-sum'] * 100)}%`;
+    var sn = `${roundDownFormat(analysisResults['strongly-negative'] / analysisResults['sentiment-sum'] * 100)}%`;
 
     document.getElementById('strongly-negative').style.width = sn;
-    //document.getElementById('strongly-negative').innerHTML = sn;
     document.getElementById('negative').style.width = n;
-    //document.getElementById('negative').innerHTML = n;
     document.getElementById('neutral').style.width = nn;
-    //document.getElementById('neutral').innerHTML = nn;
     document.getElementById('positive').style.width = p;
-    //document.getElementById('positive').innerHTML = p;
     document.getElementById('strongly-positive').style.width = sp;
-    //document.getElementById('strongly-positive').innerHTML = sp;
+
+    document.getElementById('strongly-negative-li').innerHTML = `Strongly Negative: ${sn}`;
+    document.getElementById('negative-li').innerHTML = `Negative: ${n}`;
+    document.getElementById('neutral-li').innerHTML = `Neutral: ${nn}`;
+    document.getElementById('positive-li').innerHTML = `Positive: ${p}`;
+    document.getElementById('strongly-positive-li').innerHTML = `Strongly Positive: ${sp}`;
 
     document.getElementById('commentsAnalyzed').innerHTML = `Comments Analyzed: ${analysisResults['comments-analyzed']}`;
 }

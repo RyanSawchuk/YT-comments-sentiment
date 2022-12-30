@@ -15,14 +15,14 @@ html {
 }
 
 body {
-  width: 400px; /*800px*/
-  height: 250px; /*600px*/
+  width: 475px; /*800px*/
+  height: 300px; /*600px*/
   background-color: #272b34;
 	font-family: 'Khula', sans-serif;
 	font-weight: 300;
 	color: white;
 	line-height: 1em;
-  padding: 2em;
+  padding: 1em;
 }
 
 .app {
@@ -103,7 +103,7 @@ h6 {
 }
 figure {
 	margin: 0 auto;
-	max-width: 500px;
+	max-width: 425px;
 	position: relative;
 }
 .graphic {
@@ -125,16 +125,7 @@ figure {
 .chart {
 	overflow: hidden;
 	width: 100%;
-	/*animation: expand 1.5s ease forwards;*/
 }
-/*
-.row + .row .chart {
-	animation-delay: .2s;
-}
-.row + .row + .row .chart {
-	animation-delay: .4s;
-}
-*/
 .block {
 	display: block;
 	height: 50px;
@@ -143,7 +134,6 @@ figure {
 	float: left;
 	background-color: #eb2c2c;
 	position: relative;
-	/*overflow: hidden;*/
 	opacity: 1;
 	transition: opacity, .3s ease;
 	cursor: pointer;
@@ -164,12 +154,6 @@ figure {
 .legend li:nth-of-type(5):before {
 	background-color: #19c609;
 }
-/*
-.block:nth-of-type(6),
-.legend li:nth-of-type(6):before {
-	background-color: #45c830;
-}
-*/
 .block:hover {
 	opacity: .65;
 }
@@ -177,21 +161,13 @@ figure {
 	display: block;
 	line-height: 1em;
 	position: absolute;
-	top: 100%;
+	top: 50%;
 	left: 50%;
-	transform: translate(-50%);
 }
 .x-axis {
     text-align: center;
 	padding: .5em 0 2em;
 }
-/* TODO: unused 
-.y-axis { 
-	height: 20px;
-    transform: translate(-32px,170px) rotate(270deg);
-    position: absolute;
-    left: 0;
-}*/
 .legend {
     margin: 0 auto;
     padding: 0;

@@ -2,58 +2,57 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>YT Comments Sentiment</title>
+    <title>YouTube Comments Sentiment</title>
     <link rel="stylesheet" href="popup.css" />
     <script src="popup.js"></script>
     <script src="sentimentProcess.js"></script>
   </head>
   <body>
     <div class="app">
-      <div class="divider"></div>
-      <h2 id="videoTitle" class="title"></h2>
-      <div class="divider"></div>
-      <h3 id="commentsAnalyzed"></h3>
-      <div class="divider"></div>
-      <div>
-        <figure>        
-          <div class="graphic">
-        
-            <div class="row">
-              <!--<h6>Video Sentiment</h6>-->
-              <div class="chart">
-                <span class="block" title="Strongly Negative" id="strongly-negative">
-                   <span class="value"></span>
-                </span>
-                <span class="block" title="Negative" id="negative">
-                   <span class="value"></span>
-                </span>
-                <span class="block" title="Neutral" id="neutral">
-                   <span class="value"></span>
-                </span>
-                <span class="block" title="Positive" id="positive">
-                   <span class="value"></span>
-                </span>
-                <span class="block" title="Strongly Positive" id="strongly-positive">
+      <div id="no-video-container" style="visibility: hidden;">
+        <h2>No Active YouTube Video.</h2>
+      </div>
+      <div id="main-container">
+        <h2 id="videoTitle" class="title"></h2>
+        <br>
+        <h3 id="commentsAnalyzed"></h3>
+        <br>
+        <div>
+          <figure>        
+            <div class="graphic">
+              <div class="row">
+                <div class="chart">
+                  <span class="block" title="Strongly Negative" id="strongly-negative">
                     <span class="value"></span>
-                </span>
+                  </span>
+                  <span class="block" title="Negative" id="negative">
+                    <span class="value"></span>
+                  </span>
+                  <span class="block" title="Neutral" id="neutral">
+                    <span class="value"></span>
+                  </span>
+                  <span class="block" title="Positive" id="positive">
+                    <span class="value"></span>
+                  </span>
+                  <span class="block" title="Strongly Positive" id="strongly-positive">
+                      <span class="value"></span>
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        
-          <div class="x-axis">
-            <h3>Sentiment Categories</h3>
-            <ul class="legend">
-              <li>Strongly Negative</li>
-              <li>Negative</li>
-              <li>Neutral</li>
-              <li>Positive</li>
-              <li>Strongly Positive</li>
-            </ul>
-          </div>
-        
-        </figure>
+            <div class="x-axis">
+              <h3>Sentiment Categories</h3>
+              <ul class="legend">
+                <li id="strongly-negative-li">Strongly Negative</li>
+                <li id="negative-li">Negative</li>
+                <li id="neutral-li">Neutral</li>
+                <li id="positive-li">Positive</li>
+                <li id="strongly-positive-li">Strongly Positive</li>
+              </ul>
+            </div>
+          </figure>
+        </div>
       </div>
-
     </div>
   </body>
 </html>
