@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "YT Comment Sentiment",
+  "name": "YouTube Comments Sentiment",
   "version": "0.1.0",
   "description": "Visualize a YouTube video's sentiment given the comments.",
   "author": "Ryan Sawchuk",
@@ -14,7 +14,7 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "YT Comment Sentiment",
+    "default_title": "YouTube Comment Sentiment",
     "default_popup": "popup.html"
   },
   "permissions": ["tabs", "storage", "activeTab", "scripting", "webRequest"],

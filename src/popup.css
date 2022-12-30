@@ -15,8 +15,8 @@ html {
 }
 
 body {
-  width: 500px; /*800px*/
-  height: 300px; /*600px*/
+  width: 400px; /*800px*/
+  height: 250px; /*600px*/
   background-color: #272b34;
 	font-family: 'Khula', sans-serif;
 	font-weight: 300;
@@ -81,7 +81,7 @@ code {
 }
 
 .divider {
-  margin: 30px auto 25px;
+  margin: 0px auto 0px;
   width: 50px;
   border: 0.5px dashed #000;
   opacity: 0.1;
@@ -125,23 +125,25 @@ figure {
 .chart {
 	overflow: hidden;
 	width: 100%;
-	animation: expand 1.5s ease forwards;
+	/*animation: expand 1.5s ease forwards;*/
 }
+/*
 .row + .row .chart {
 	animation-delay: .2s;
 }
 .row + .row + .row .chart {
 	animation-delay: .4s;
 }
+*/
 .block {
 	display: block;
 	height: 50px;
 	color: #fff;
 	font-size: .75em;
 	float: left;
-	background-color: #e03b3b;
+	background-color: #eb2c2c;
 	position: relative;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	opacity: 1;
 	transition: opacity, .3s ease;
 	cursor: pointer;
@@ -175,7 +177,7 @@ figure {
 	display: block;
 	line-height: 1em;
 	position: absolute;
-	top: 50%;
+	top: 100%;
 	left: 50%;
 	transform: translate(-50%);
 }
@@ -193,7 +195,7 @@ figure {
 .legend {
     margin: 0 auto;
     padding: 0;
-	font-size: .9em;
+	  font-size: .9em;
 }
 .legend li {
     display: inline-block;
@@ -206,7 +208,7 @@ figure {
     display: inline-block;
     width: 8px;
     height: 8px;
-	background-color: #334D5C;
+	background-color: #eb2c2c;
 }
 @media screen and (min-width: 400px) {
 	h6 {

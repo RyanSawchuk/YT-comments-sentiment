@@ -12,24 +12,31 @@ var analysisResults = {
     "strongly-positive": 0
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+var pageToken = undefined;
 export async function beginSentimentProcess(videoId){
     for (var i = 0; i < 10; i++){
-        
-        queryCommentData(videoId)
+        queryCommentData(videoId, pageToken)
         .then(commentsBatch => computeSentiment(commentsBatch))
-        .then(result => console.log(result))
-        
-        //await displaySentimentVisual();
-
-        break;
+        .then((nextPageToken) => pageToken = nextPageToken);
+        console.log(pageToken)
+        if (!pageToken){
+            break;
+        }
     }
 }
 
-
-async function queryCommentData(videoId){    
+async function queryCommentData(videoId, pageToken){    
     const youtubeAPIKey = "AIzaSyAIMOdtojUDvFctt0xfoqcRYXqztBqASKw";
-    var URL = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=100&order=relevance&videoId=${videoId}&key=${youtubeAPIKey}`;
 
+    var URL = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=100&order=relevance&videoId=${videoId}&key=${youtubeAPIKey}`;
+    if (pageToken){
+        URL = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=100&order=relevance&pageToken=${pageToken}&videoId=${videoId}&key=${youtubeAPIKey}`;
+    }
+    
     return fetch(URL, { headers: { "Content-Type": "application/json" }})
     .then(response => response.json())
     .then((data) => {
@@ -38,8 +45,8 @@ async function queryCommentData(videoId){
         var result = {};
         result['totalResults'] = data['pageInfo']['totalResults'];
         result['nextPageToken'] = data['nextPageToken'];
-
         result['comments'] = [];
+        pageToken = data['nextPageToken'];
 
         for (var index in data.items){
             var extractedData = {
@@ -61,46 +68,62 @@ async function queryCommentData(videoId){
 
             result['comments'].push(extractedData);
         }
-
         return result;
     })
     .catch(err => console.log(err))
 }
 
-
 async function computeSentiment(commentsBatch){
-    
     for (var index in commentsBatch.comments){
         const intensity = vader.SentimentIntensityAnalyzer.polarity_scores(commentsBatch.comments[index].comment);
-        console.log(intensity, commentsBatch.comments[index])
         
         var likes = parseInt(commentsBatch.comments[index].likes);
         var likeScalar = likes == 0 ? 1 : likes ;
 
         if (intensity.compound > 0.75){
-            analysisResults['strongly-positive'] += intensity.compound * likeScalar;
+            analysisResults['strongly-positive'] += Math.abs(intensity.compound * likeScalar);
         }
         else if (intensity.compound > 0.25){
-            analysisResults['positive'] += intensity.compound * likeScalar;
+            analysisResults['positive'] += Math.abs(intensity.compound * likeScalar);
         }
         else if (intensity.compound < 0.25 && intensity.compound > -0.25){
-            analysisResults['neutral'] += intensity.compound * likeScalar;
+            analysisResults['neutral'] += Math.abs(intensity.compound * likeScalar);
         }
         else if (intensity.compound < -0.75){
-            analysisResults['negative'] += intensity.compound * likeScalar;
+            analysisResults['negative'] += Math.abs(intensity.compound * likeScalar);
         }
         else if (intensity.compound < -0.25){
-            analysisResults['strongly-negative'] += intensity.compound * likeScalar;
+            analysisResults['strongly-negative'] += Math.abs(intensity.compound * likeScalar);
         }
 
-        analysisResults['sentiment-sum'] += intensity.compound * likeScalar;
+        analysisResults['sentiment-sum'] += Math.abs(intensity.compound * likeScalar);
         analysisResults['comments-analyzed'] += 1;
+        
+        await sleep(10);
+
+        updateSentimentVisual();
     }
 
-    return true;
+    return commentsBatch.nextPageToken;
 }
 
-
 function updateSentimentVisual(){
+    var sp = `${(analysisResults['strongly-positive'] / analysisResults['sentiment-sum'] * 100).toFixed(1)}%`;
+    var p = `${(analysisResults['positive'] / analysisResults['sentiment-sum'] * 100).toFixed(1)}%`;
+    var nn = `${(analysisResults['neutral'] / analysisResults['sentiment-sum'] * 100).toFixed(1)}%`;
+    var n = `${(analysisResults['negative'] / analysisResults['sentiment-sum'] * 100).toFixed(1)}%`;
+    var sn = `${(analysisResults['strongly-negative'] / analysisResults['sentiment-sum'] * 100).toFixed(1)}%`;
 
+    document.getElementById('strongly-negative').style.width = sn;
+    //document.getElementById('strongly-negative').innerHTML = sn;
+    document.getElementById('negative').style.width = n;
+    //document.getElementById('negative').innerHTML = n;
+    document.getElementById('neutral').style.width = nn;
+    //document.getElementById('neutral').innerHTML = nn;
+    document.getElementById('positive').style.width = p;
+    //document.getElementById('positive').innerHTML = p;
+    document.getElementById('strongly-positive').style.width = sp;
+    //document.getElementById('strongly-positive').innerHTML = sp;
+
+    document.getElementById('commentsAnalyzed').innerHTML = `Comments Analyzed: ${analysisResults['comments-analyzed']}`;
 }
