@@ -1,5 +1,7 @@
 # <img src="public/icons/icon_48.png" width="45" align="left"> YouTube Comments Sentiment
 
+<img src="public/tiles/promotile2.png" width="440" align="center">
+
 Visualize the aggregate sentiment of a YouTube video's comments on an adapted Likert scale.
 
 This extension uses the specialized social media [VADER Sentiment Analysis](https://github.com/vaderSentiment/vaderSentiment-js) algorithms to evaluate the sentiment of the top 300 comments by relevance. 
