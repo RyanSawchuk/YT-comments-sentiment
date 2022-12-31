@@ -12,7 +12,7 @@ async function beginSentimentProcess(videoId){
 }
 
 async function queryCommentData(videoId){    
-    const youtubeAPIKey = "AIzaSyAIMOdtojUDvFctt0xfoqcRYXqztBqASKw";
+    const youtubeAPIKey = "";
     var URL = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=100&order=relevance&videoId=${videoId}&key=${youtubeAPIKey}`
 
     var result = {};
