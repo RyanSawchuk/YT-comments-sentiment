@@ -128,10 +128,15 @@ function updateSentimentVisual(){
     document.getElementById('strongly-positive').style.width = sp;
 
     document.getElementById('strongly-negative-li').innerHTML = `Strongly Negative: ${sn}`;
+    document.getElementById('strongly-negative').title = `Strongly Negative: ${sn}`;
     document.getElementById('negative-li').innerHTML = `Negative: ${n}`;
+    document.getElementById('negative').title = `Negative: ${n}`;
     document.getElementById('neutral-li').innerHTML = `Neutral: ${nn}`;
+    document.getElementById('neutral').title = `Neutral: ${nn}`;
     document.getElementById('positive-li').innerHTML = `Positive: ${p}`;
+    document.getElementById('positive').title = `Positive: ${p}`;
     document.getElementById('strongly-positive-li').innerHTML = `Strongly Positive: ${sp}`;
+    document.getElementById('strongly-positive').title = `Strongly Positive: ${sp}`;
 
     document.getElementById('commentsAnalyzed').innerHTML = `Comments Analyzed: ${analysisResults['comments-analyzed']}`;
 }
