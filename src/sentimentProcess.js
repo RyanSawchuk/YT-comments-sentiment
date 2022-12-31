@@ -34,11 +34,11 @@ export async function beginSentimentProcess(videoId){
 }
 
 async function queryCommentData(videoId, pageToken){    
-    const youtubeAPIKey = "AIzaSyAIMOdtojUDvFctt0xfoqcRYXqztBqASKw";
+    const k = "AIzaSyAYIlueKGQFO8gcw6bgWet2aANAxi-2Iwo";
 
-    var URL = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=100&order=relevance&videoId=${videoId}&key=${youtubeAPIKey}`;
+    var URL = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=100&order=relevance&videoId=${videoId}&key=${k}`;
     if (pageToken){
-        URL = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=100&order=relevance&pageToken=${pageToken}&videoId=${videoId}&key=${youtubeAPIKey}`;
+        URL = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=100&order=relevance&pageToken=${pageToken}&videoId=${videoId}&key=${k}`;
     }
     
     return fetch(URL, { headers: { "Content-Type": "application/json" }})

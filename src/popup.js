@@ -16,7 +16,7 @@ const sentimentProcess = require('./sentimentProcess.js');
 
     if (tab && tab.url && tab.url.includes("www.youtube.com/watch?v=")){
       document.getElementById('no-video-container').style.visibility = 'hidden';
-      document.getElementById("videoTitle").innerHTML = tab.title;
+      document.getElementById("videoTitle").innerHTML = tab.title.replace(" - YouTube", '');
       var videoId = tab.url.split('=')[1];
       setSentimentVisual();
       await sentimentProcess.beginSentimentProcess(videoId);
