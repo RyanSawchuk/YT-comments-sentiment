@@ -17,19 +17,5 @@
     "default_title": "YouTube Comment Sentiment",
     "default_popup": "popup.html"
   },
-  "permissions": ["tabs", "storage", "activeTab", "scripting", "webRequest"],
-  "host_permissions": [
-    "https://www.youtube.com/*"
-  ],
-  "content_scripts": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "run_at": "document_idle",
-      "js": [
-        "contentScript.js"
-      ]
-    }
-  ]
+  "permissions": ["activeTab", "webRequest"]
 }
