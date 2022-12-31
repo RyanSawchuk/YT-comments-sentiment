@@ -34,7 +34,7 @@ export async function beginSentimentProcess(videoId){
 }
 
 async function queryCommentData(videoId, pageToken){    
-    const k = "AIzaSyAYIlueKGQFO8gcw6bgWet2aANAxi-2Iwo";
+    const k = "";
 
     var URL = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=100&order=relevance&videoId=${videoId}&key=${k}`;
     if (pageToken){
