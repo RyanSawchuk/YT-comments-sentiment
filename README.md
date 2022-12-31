@@ -13,7 +13,7 @@ Scaling by likes allows for an accurate depiction of the sentiment with a low sa
 
 ## Install
 
-**Chrome Store publish status: pending**<!-- TODO: Add chrome extension link inside parenthesis -->
+**Chrome Store publish status: pending review**<!-- TODO: Add chrome extension link inside parenthesis -->
 
 ### Manual Install
 
