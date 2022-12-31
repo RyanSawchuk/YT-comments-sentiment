@@ -15,7 +15,7 @@ Scaling by likes allows for an accurate depiction of the sentiment with a low sa
 ### Manual Install
 
 1. ```git clone``` this repo.
-2. Add your Google API Key to the variable (```k```)[https://github.com/RyanSawchuk/YT-comments-sentiment/blob/main/src/sentimentProcess.js?plain=#1L37]
+2. Add your Google API Key to the variable ```k``` in https://github.com/RyanSawchuk/YT-comments-sentiment/blob/main/src/sentimentProcess.js?plain=#1L37
 3. ```npm run build``` from the root directory of the project.
 4. Open the extensions management page in Chrome or Brave.
 5. Upload the ```build``` folder through the ```Load Unpacked``` button in the top left.
