@@ -17,5 +17,5 @@
     "default_title": "YouTube Comment Sentiment",
     "default_popup": "popup.html"
   },
-  "permissions": ["activeTab", "webRequest"]
+  "permissions": ["activeTab"]
 }
