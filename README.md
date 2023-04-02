@@ -13,7 +13,7 @@ Scaling by likes allows for an accurate depiction of the sentiment with a low sa
 
 ## Install
 
-**Chrome Store publish status: pending review**<!-- TODO: Add chrome extension link inside parenthesis -->
+**[Chrome Store Link](https://chrome.google.com/webstore/detail/youtube-comments-sentimen/dkfoidehmdpnpcplbcmenkfclahalihg)**
 
 ### Manual Install
 
